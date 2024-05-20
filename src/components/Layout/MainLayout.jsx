@@ -23,7 +23,7 @@ const MainLayout = () => {
   } = theme.useToken();
   
   const [drawerVisible, setDrawerVisible] = useState(false);
-  const [mobile, setMobile] = useState(window.innerWidth <= 768);
+  const [mobile, setMobile] = useState(false);
 
   const showDrawer = () => {
     setDrawerVisible(true);
@@ -34,16 +34,22 @@ const MainLayout = () => {
   };
 
   useEffect(() => {
-    const handleResize = () => {
+    // This check ensures that the code runs only on the client side
+    if (typeof window !== 'undefined') {
+      const handleResize = () => {
+        setMobile(window.innerWidth <= 768);
+      };
+
+      // Set initial state
       setMobile(window.innerWidth <= 768);
-    };
 
-    window.addEventListener('resize', handleResize);
+      window.addEventListener('resize', handleResize);
 
-    // Clean up event listener on component unmount
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
+      // Clean up event listener on component unmount
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
   }, []);
 
   return (

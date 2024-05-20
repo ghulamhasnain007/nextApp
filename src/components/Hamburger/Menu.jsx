@@ -24,7 +24,7 @@ const DropdownMenu = () => {
   );
 
   return (
-    <Dropdown overlay={menu} trigger={['click']} placement="bottom">
+    <Dropdown menu={menu} trigger={['click']} placement="bottom">
       <Button
         type="primary"
         icon={<MenuOutlined />}
